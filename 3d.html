@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>3d展示</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<style>
+			.container{
+				width:200px;
+				height:300px;
+				margin: 0 auto;
+            	margin-top:150px;  
+				perspective: 500px;
+				-webkit-perspective: 500px;
+				transform-style: preserve-3d;
+				-webkit-transform-style: preserve-3d;
+			}
+			.stage{
+				width:200px;
+				height:300px;
+				transform-style: preserve-3d;
+				-webkit-transform-style: preserve-3d;
+				/*这样将视角调整到立方体内部*/
+				transform: translate3d(100px,200px,500px);
+				/*这样视角在立方体的外部*/
+				/* transform: translateZ(-500px);  */
+			}
+			.box{
+				width:200px;
+				height:30px;
+				transform-style: preserve-3d;
+				-webkit-transform-style: preserve-3d;
+				position:relative;          	
+            	animation: xuanzhuan 5s linear infinite;
+			}
+			@keyframes xuanzhuan{
+				from{transform: rotateY(0deg);}
+				to{transform: rotateY(360deg);}
+			}
+			.box div{
+				width:100%;
+				height:100%;
+				position: absolute;
+				top:0;
+				left:0;
+			}
+			.box div:first-child{
+				transform: rotateY(0deg) translateZ(100px);
+			}
+			.box div:nth-child(2){
+				transform: rotateY(90deg) translateZ(100px);
+			}
+			.box div:nth-child(3){
+				transform: rotateY(180deg) translateZ(100px);
+			}
+			.box div:last-child{
+				transform: rotateY(270deg) translateZ(100px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class='container'>
+			<div class='stage'>
+				<div class='box'>
+					<div class='item'>
+						<img src="img/1.png" alt="" />
+					</div>
+					<div class='item'>
+						<img src="img/2.png" alt="" />
+					</div>
+					<div class='item'>
+						<img src="img/3.png" alt="" />
+					</div>
+					<div class='item'>
+						<img src="img/4.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

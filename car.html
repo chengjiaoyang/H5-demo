@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>随着鼠标旋转的车</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<style>
+			.car_box{
+				width:300px;
+				height:300px;
+				margin: 0 auto;
+			}
+			.car_box img{
+				width:100%;
+				display: none;
+			}
+			.car_box img:first-child{
+				display: inline;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='car_box'>
+			<img src="http://s.ku-h5.com/s/tesla/static/userfiles/3dpic/5/2014/04/16282/52e24d0285a5516282.jpg" alt="" />
+			<img src="52e24d02bea7816282.jpg">
+			<img src="52e24d02cfd0616282.jpg">
+			<img src="52e24d02df8ba16282.jpg">
+			<img src="52e24d02f074016282.jpg" >
+			<img src="52e24d030b93616282.jpg" >
+			<img src="52e24d031e1ea16282.jpg" >
+			<img src="52e24d033ccd516282.jpg" >
+			<img src="52e24d034d98a16282.jpg" >
+			<img  src="52e24d035dc3516282.jpg" >
+			<img  src="52e24d036de6a16282.jpg" >
+			<img  src="52e24d037fa3c16282.jpg" >
+			<img  src="52e24d039076716282.jpg" >
+			<img  src="52e24d03af15216282.jpg">
+			<img  src="52e24d03bf3fd16282.jpg" >
+			<img  src="52e24d03cf78816282.jpg">
+			<img  src="52e24d03e0c5016282.jpg">
+			<img  src="52e24d040ca7016282.jpg">
+			<img  src="52e24d041ddae16282.jpg">
+			<img  src="52e24d042d0ca16282.jpg">
+			<img  src="52e24d043ce8d16282.jpg">
+			<img  src="52e24d044da9316282.jpg">
+			<img  src="52e24d045d2cb16282.jpg">
+			<img  src="52e24d046e40616282.jpg">
+			<img  src="52e24d047d8db16282.jpg">
+			<img  src="52e24d048f02c16282.jpg">
+			<img  src="52e24d049e81e16282.jpg">
+			<img  src="52e24d04aef5716282.jpg">
+			<img  src="52e24d04bf20d16282.jpg">
+			<img  src="52e24d04cf1b516282.jpg">
+			<img  src="52e24d04df7d616282.jpg">
+			<img  src="52e24d04efea216282.jpg">
+			<img  src="52e24d050cceb16282.jpg">
+			<img  src="52e24d051c69116282.jpg">
+			<img  src="52e24d052c88b16282.jpg">   
+		</div>
+	</body>
+	<script type="text/javascript" src="jquery-1.8.2.min.js.下载"></script>
+	<script>
+		var imageNum = $('img').length;
+//		console.log(imageNum);
+		var speed = 10;
+		var position_3d; //判断是否水平移动的参数  true为垂直,false为水平
+		var movePoint_x,movePoint_y;
+		var currentImage = 1; // 当前显示图片，从0开始
+		$('.car_box').on('touchstart',function(e){
+			 if (e.type == "touchstart") {
+                	 var startPoint_x = window.event.touches[0].pageX;
+                	 var startPoint_y = window.event.touches[0].pageY;
+                 } else {
+                	 startPoint_x = e.pageX||e.x;
+                	 startPoint_y = e.pageX||e.y;
+                 }
+                 movePoint_x = startPoint_x;
+                 movePoint_y = startPoint_y;
+		});
+		$('.car_box').on('touchmove',function(e){
+			e.preventDefault();
+			//获取移动的x，y值
+            var pageX,pageY;
+			if (e.type == "touchmove") {
+                pageX = window.event.targetTouches[0].pageX;
+                pageY = window.event.targetTouches[0].pageY;
+            } else {
+                pageX = e.pageX||e.x;
+                pageY = e.pageY||e.y;
+               }
+			//判断水平移动还是垂直移动  Math.abs取绝对值
+			Math.abs(pageY-movePoint_y)>=Math.abs(pageX-movePoint_x) ? position_3d = true : position_3d = false ; 
+		//移动处理
+		if(!position_3d){
+			if(Math.abs(pageX-movePoint_x)>=speed){
+				$('.car_box').find('img').eq(currentImage-1).css('display','none');
+				if (movePoint_x - pageX > 0) {//向右滑动，currentImage++;
+								 currentImage++;
+								 if (currentImage >= imageNum) {
+									 currentImage = 1;
+								 }
+							 } else { //向左滑动。currentImage--;
+								 currentImage--;
+								 if (currentImage < 0) { //如果为负值，currentImage为img数目的总和
+									 currentImage = imageNum;
+								 }
+							 }
+						movePoint_x = pageX;
+						$('.car_box').find('img').eq(currentImage-1).css('display','inline');
+			}
+		}
+		});
+	</script>
+</html>
